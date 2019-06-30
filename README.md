@@ -1,4 +1,4 @@
-# app
+# appointus - app
 
 ## Project setup
 ```

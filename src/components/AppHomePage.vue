@@ -2,7 +2,7 @@
   <div>
     <v-tabs color="cyan" dark slider-color="white">
       <v-tab ripple>APPOINTMENTS</v-tab>
-      <v-tab ripple>CLIENTS</v-tab>
+      <v-tab ripple @click="listClients">CLIENTS</v-tab>
       <v-tab-item>{{this.info}}</v-tab-item>
       <v-tab-item>
         <v-icon @click="add" v-if="isActive" large color="green">add_circle</v-icon>
@@ -10,7 +10,12 @@
           <v-text-field v-model="firstName" :counter="20" label="First Name"></v-text-field>
           <v-text-field v-model="secondName" :counter="20" label="Second Name"></v-text-field>
           <v-text-field v-model="phone" :counter="10" label="Phone Number"></v-text-field>
-          <v-btn type="submit" class="white--text success" color="light-green accent-3">Submit</v-btn>
+          <v-btn
+            @click="listClients"
+            type="submit"
+            class="white--text success"
+            color="light-green accent-3"
+          >Submit</v-btn>
           <v-btn class="white--text" color="red accent-2" @click="cancel">Cancel</v-btn>
         </v-form>
         <v-card>
@@ -26,7 +31,11 @@
     </v-tabs>
   </div>
 </template>
+
 <script>
+import axios from "axios";
+const baseUrl = "http://localhost:3000/clients";
+
 export default {
   data() {
     return {
@@ -35,7 +44,6 @@ export default {
       secondName: "",
       id: null,
       phone: "",
-      info: "",
       client: {
         id: null,
         firstName: "",
@@ -51,8 +59,8 @@ export default {
       this.client.secondName = this.secondName;
       this.client.phone = this.phone;
       this.client.id = this.clients.length;
-      this.clients.push(this.client);
-      console.log(this.clients);
+      axios.post(baseUrl, { body: this.client }).then(() => {});
+
       this.isActive = true;
     },
     add() {
@@ -60,6 +68,14 @@ export default {
     },
     cancel() {
       this.isActive = true;
+    },
+    listClients() {
+      axios.get(baseUrl).then(res => {
+        this.clients = [];
+        res.data.forEach(element => {
+          this.clients.push(element.body);
+        });
+      });
     }
   }
 };

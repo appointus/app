@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Clients from "./views/Clients.vue";
 import Appointments from "./views/Appointments.vue";
-import AppHomePage from "./components/AppHomePage.vue";
+import Home from "./components/Home.vue";
 
 Vue.use(Router);
 
@@ -13,7 +13,7 @@ export default new Router({
     {
       path: "/",
       name: "Home",
-      component: AppHomePage
+      component: Home
     },
     {
       path: "/appointments",

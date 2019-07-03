@@ -1,12 +1,12 @@
 <template>
   <div>
     <v-icon @click="add" v-if="isFormHidden" large color="green">add_circle</v-icon>
-    <v-form @submit="fetchClients" v-else method="post">
+    <v-form @submit="submit" v-else method="post">
       <v-text-field v-model="client.firstName" :counter="20" label="First Name"></v-text-field>
       <v-text-field v-model="client.secondName" :counter="20" label="Second Name"></v-text-field>
       <v-text-field v-model="client.phone" :counter="10" label="Phone Number"></v-text-field>
       <v-btn
-        @click="listClients"
+        @click="fetchClients"
         type="submit"
         class="white--text success"
         color="light-green accent-3"
@@ -42,16 +42,16 @@ export default {
     };
   },
   mounted() {
-    this.listClients();
+    this.fetchClients();
   },
   methods: {
-    fetchClients() {
+    submit() {
       if (!this.firstName || !this.secondName || !this.phone) {
         return;
       }
       axios.post(baseUrl, { body: this.client }).then(() => {
         this.isFormHidden = true;
-        this.listClients();
+        this.fetchClients();
       });
     },
     add() {
@@ -60,7 +60,7 @@ export default {
     cancel() {
       this.isFormHidden = true;
     },
-    listClients() {
+    fetchClients() {
       axios.get(baseUrl).then(res => {
         this.clients = [];
         res.data.forEach(element => {

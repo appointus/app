@@ -18,16 +18,15 @@
             </v-menu>
           </v-flex>
           <v-flex xs4>
-            <v-text-field @change="loadClientsToSelect" v-model="appoint.time" label="Input time"></v-text-field>
+            <v-text-field v-model="appoint.time" label="Input time"></v-text-field>
           </v-flex>
           <v-flex xs4>
             <v-form>
               <v-select
                 v-model="select"
                 :hint="`${select.first_name}  ${select.last_name} - ${select.phone}`"
-                :items="clientsSelect"
-                item-text="selected"
-                item-value="selected"
+                :items="clients"
+                :item-text="selectItemText"
                 label="Select"
                 persistent-hint
                 return-object
@@ -47,7 +46,7 @@
       </v-container>
     </v-form>
     <v-list>
-      <v-list-tile v-for="a in appoints" :key="a.client._id">
+      <v-list-tile v-for="a in appoints" :key="a._id">
         <v-list-tile-content>{{a.time}}</v-list-tile-content>
         <v-list-tile-content>{{`${a.client.first_name} ${a.client.last_name} - ${a.client.phone}`}}</v-list-tile-content>
         <v-list-tile-content>{{a.date}}</v-list-tile-content>
@@ -64,15 +63,13 @@ const appointmentsUrl = "http://localhost:3000/appointments";
 export default {
   data() {
     return {
-      clientsSelect: [],
       clients: [],
       appoints: [],
       select: {
         first_name: "",
         last_name: "",
         phone: "",
-        _id: "",
-        selected: ""
+        _id: ""
       },
       appoint: {
         date: new Date().toISOString().substr(0, 10),
@@ -87,24 +84,14 @@ export default {
   },
 
   methods: {
+    selectItemText: item =>
+      item.first_name + " " + item.last_name + " - " + item.phone,
     add() {
       this.appoint.client = this.select._id;
       axios.post(appointmentsUrl, this.appoint).then(() => {
         this.fetchClients();
         this.fetchAppoints();
       });
-    },
-    loadClientsToSelect() {
-      this.clients.forEach(e => {
-        this.clientsSelect.push({
-          first_name: e.first_name,
-          last_name: e.last_name,
-          phone: e.phone,
-          _id: e._id,
-          selected: `${e.first_name} ${e.last_name} - ${e.phone}`
-        });
-      });
-      this.isFormHiden = false;
     },
     fetchClients() {
       axios.get(clientsUrl).then(res => {

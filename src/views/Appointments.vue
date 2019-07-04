@@ -85,7 +85,7 @@ export default {
 
   methods: {
     clientInfoString: client =>
-      client.first_name + " " + client.last_name + " - " + client.phone,
+      `${client.first_name} ${client.last_name} - ${client.phone}`,
     add() {
       this.appoint.client = this.select._id;
       axios.post(appointmentsUrl, this.appoint).then(() => {
@@ -103,7 +103,7 @@ export default {
     },
     fetchAppoints() {
       axios
-        .get(appointmentsUrl + "/" + this.appoint.date.toString())
+        .get(`${appointmentsUrl}/${this.appoint.date.toString()}`)
         .then(res => {
           this.appoints = res.data;
         });

@@ -24,9 +24,8 @@
             <v-form>
               <v-select
                 v-model="select"
-                :hint="`${select.first_name}  ${select.last_name} - ${select.phone}`"
                 :items="clients"
-                :item-text="selectItemText"
+                :item-text="clientInfoString"
                 label="Select"
                 persistent-hint
                 return-object
@@ -48,7 +47,7 @@
     <v-list>
       <v-list-tile v-for="a in appoints" :key="a._id">
         <v-list-tile-content>{{a.time}}</v-list-tile-content>
-        <v-list-tile-content>{{`${a.client.first_name} ${a.client.last_name} - ${a.client.phone}`}}</v-list-tile-content>
+        <v-list-tile-content>{{clientInfoString(a.client)}}</v-list-tile-content>
         <v-list-tile-content>{{a.date}}</v-list-tile-content>
       </v-list-tile>
     </v-list>
@@ -84,8 +83,8 @@ export default {
   },
 
   methods: {
-    selectItemText: item =>
-      item.first_name + " " + item.last_name + " - " + item.phone,
+    clientInfoString: client =>
+      client.first_name + " " + client.last_name + " - " + client.phone,
     add() {
       this.appoint.client = this.select._id;
       axios.post(appointmentsUrl, this.appoint).then(() => {

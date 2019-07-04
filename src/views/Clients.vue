@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     submit() {
-      console.log("sadasdasdsadsa", this.client);
       axios.post(baseUrl, this.client).then(() => {
         this.isFormHidden = true;
         this.fetchClients();
@@ -61,7 +60,6 @@ export default {
     fetchClients() {
       axios.get(baseUrl).then(res => {
         this.clients = [];
-        console.log(res.data[0]);
         res.data.forEach(element => {
           this.clients.push(element);
         });

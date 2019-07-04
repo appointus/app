@@ -47,8 +47,9 @@
     <v-list>
       <v-list-tile v-for="a in appoints" :key="a._id">
         <v-list-tile-content>{{a.time}}</v-list-tile-content>
-        <v-list-tile-content>{{clientInfoString(a.client)}}</v-list-tile-content>
-        <v-list-tile-content>{{a.date}}</v-list-tile-content>
+        <v-list-tile-content>{{a.client.first_name}}</v-list-tile-content>
+        <v-list-tile-content>{{a.client.last_name}}</v-list-tile-content>
+        <v-list-tile-content>{{a.client.phone}}</v-list-tile-content>
       </v-list-tile>
     </v-list>
   </v-app>
@@ -77,7 +78,7 @@ export default {
       }
     };
   },
-  mounted() {
+  created() {
     this.fetchClients();
     this.fetchAppoints();
   },
@@ -104,10 +105,7 @@ export default {
       axios
         .get(appointmentsUrl + "/" + this.appoint.date.toString())
         .then(res => {
-          this.appoints = [];
-          res.data.forEach(element => {
-            this.appoints.push(element);
-          });
+          this.appoints = res.data;
         });
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <v-form>
       <v-container grid-list-md text-xs-center>
         <v-layout row wrap>
@@ -7,14 +7,14 @@
             <v-menu :close-on-content-click="true" full-width min-width="290px">
               <template v-slot:activator="{ on }">
                 <v-text-field
-                  v-model="appoint.data"
+                  v-model="appoint.date"
                   label="Select data"
                   prepend-icon="event"
                   readonly
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="appoint.data"></v-date-picker>
+              <v-date-picker @change="fetchAppoints" v-model="appoint.date"></v-date-picker>
             </v-menu>
           </v-flex>
           <v-flex xs4>
@@ -24,10 +24,10 @@
             <v-form>
               <v-select
                 v-model="select"
-                :hint="`${select.firstName}  ${select.secondName} - ${select.phone}`"
+                :hint="`${select.first_name}  ${select.last_name} - ${select.phone}`"
                 :items="clientsSelect"
                 item-text="selected"
-                item-value="phone"
+                item-value="selected"
                 label="Select"
                 persistent-hint
                 return-object
@@ -47,41 +47,37 @@
       </v-container>
     </v-form>
     <v-list>
-      <v-list-tile v-for="a in appoints" :key="a.client">
+      <v-list-tile v-for="a in appoints" :key="a.client._id">
         <v-list-tile-content>{{a.time}}</v-list-tile-content>
-        <v-list-tile-content>{{`${a.client.firstName} ${a.client.secondName} - ${a.client.phone}`}}</v-list-tile-content>
-        <v-list-tile-content>{{a.data}}</v-list-tile-content>
+        <v-list-tile-content>{{`${a.client.first_name} ${a.client.last_name} - ${a.client.phone}`}}</v-list-tile-content>
+        <v-list-tile-content>{{a.date}}</v-list-tile-content>
       </v-list-tile>
     </v-list>
-  </div>
+  </v-app>
 </template>
 
 <script>
 import axios from "axios";
 const clientsUrl = "http://localhost:3000/clients";
-const appointmentstsUrl = "http://localhost:3000/appointments";
+const appointmentsUrl = "http://localhost:3000/appointments";
 
 export default {
   data() {
     return {
-      isFormHiden: true,
       clientsSelect: [],
       clients: [],
       appoints: [],
       select: {
-        firstName: "",
-        secondName: "",
+        first_name: "",
+        last_name: "",
         phone: "",
+        _id: "",
         selected: ""
       },
       appoint: {
-        data: "",
+        date: new Date().toISOString().substr(0, 10),
         time: "",
-        client: {
-          firstName: "",
-          secondName: "",
-          phone: ""
-        }
+        client: ""
       }
     };
   },
@@ -92,25 +88,20 @@ export default {
 
   methods: {
     add() {
-      this.appoint.client.firstName = this.select.firstName;
-      this.appoint.client.secondName = this.select.secondName;
-      this.appoint.client.phone = this.select.phone;
-      axios.post(appointmentstsUrl, { body: this.appoint }).then(() => {
-        this.isFormHidden = true;
+      this.appoint.client = this.select._id;
+      axios.post(appointmentsUrl, this.appoint).then(() => {
         this.fetchClients();
+        this.fetchAppoints();
       });
-      //   let newAppoint = { ...this.appoint };
-      //   newAppoint.client = { ...newAppoint.client };
-      //   this.appoints.push(newAppoint);
-      //   this.isFormHiden = true;
     },
     loadClientsToSelect() {
       this.clients.forEach(e => {
         this.clientsSelect.push({
-          firstName: e.firstName,
-          secondName: e.secondName,
+          first_name: e.first_name,
+          last_name: e.last_name,
           phone: e.phone,
-          selected: `${e.firstName} ${e.secondName} - ${e.phone}`
+          _id: e._id,
+          selected: `${e.first_name} ${e.last_name} - ${e.phone}`
         });
       });
       this.isFormHiden = false;
@@ -119,18 +110,19 @@ export default {
       axios.get(clientsUrl).then(res => {
         this.clients = [];
         res.data.forEach(element => {
-          this.clients.push(element.body);
+          this.clients.push(element);
         });
       });
     },
     fetchAppoints() {
-      axios.get(appointmentstsUrl).then(res => {
-        this.appoints = [];
-        res.data.forEach(element => {
-          this.appoints.push(element.body);
+      axios
+        .get(appointmentsUrl + "/" + this.appoint.date.toString())
+        .then(res => {
+          this.appoints = [];
+          res.data.forEach(element => {
+            this.appoints.push(element);
+          });
         });
-      });
-      console.log(this.appoints);
     }
   }
 };

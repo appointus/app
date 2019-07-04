@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <v-icon @click="add" v-if="isFormHidden" large color="green">add_circle</v-icon>
     <v-form v-else>
       <v-text-field v-model="client.first_name" :counter="20" label="First Name"></v-text-field>
@@ -22,7 +22,7 @@
         </v-list-tile>
       </v-list>
     </v-card>
-  </div>
+  </v-app>
 </template>
 
 <script>

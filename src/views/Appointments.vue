@@ -45,11 +45,11 @@
       </v-container>
     </v-form>
     <v-list>
-      <v-list-tile v-for="a in appoints" :key="a._id">
-        <v-list-tile-content>{{a.time}}</v-list-tile-content>
-        <v-list-tile-content>{{a.client.first_name}}</v-list-tile-content>
-        <v-list-tile-content>{{a.client.last_name}}</v-list-tile-content>
-        <v-list-tile-content>{{a.client.phone}}</v-list-tile-content>
+      <v-list-tile v-for="appoint in appoints" :key="appoint._id">
+        <v-list-tile-content>{{appoint.time}}</v-list-tile-content>
+        <v-list-tile-content>{{appoint.client.first_name}}</v-list-tile-content>
+        <v-list-tile-content>{{appoint.client.last_name}}</v-list-tile-content>
+        <v-list-tile-content>{{appoint.client.phone}}</v-list-tile-content>
       </v-list-tile>
     </v-list>
   </v-app>

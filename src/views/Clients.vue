@@ -15,10 +15,10 @@
     </v-form>
     <v-card>
       <v-list>
-        <v-list-tile v-for="c in clients" :key="c.phone">
-          <v-list-tile-content>{{c.first_name}}</v-list-tile-content>
-          <v-list-tile-content>{{c.last_name}}</v-list-tile-content>
-          <v-list-tile-content>{{c.phone}}</v-list-tile-content>
+        <v-list-tile v-for="client in clients" :key="client.phone">
+          <v-list-tile-content>{{client.first_name}}</v-list-tile-content>
+          <v-list-tile-content>{{client.last_name}}</v-list-tile-content>
+          <v-list-tile-content>{{client.phone}}</v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-card>

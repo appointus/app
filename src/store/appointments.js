@@ -1,6 +1,8 @@
 import Axios from "axios";
 import config from "../config";
 
+const baseUrl = `${config.Url}/appointments`;
+
 export default {
   state: {
     appoints: []
@@ -20,12 +22,12 @@ export default {
   },
   actions: {
     SAVE_APPOINT: (context, payload) => {
-      Axios.post(config.appointmentsUrl, payload).then(() => {
+      Axios.post(baseUrl, payload).then(() => {
         context.commit("ADD_APPOINT", payload);
       });
     },
     GET_APPOINTS: (context, payload) => {
-      Axios.get(`${config.appointmentsUrl}/${payload.toString()}`).then(res => {
+      Axios.get(`${baseUrl}/${payload.toString()}`).then(res => {
         context.commit("SET_APPOINTS", res.data);
       });
     }

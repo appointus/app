@@ -81,7 +81,7 @@ export default {
   },
   computed: {
     clientsList() {
-      return this.$store.getters.allClients;
+      return this.$store.getters.CLIENTS;
     },
     appointusList() {
       return this.$store.getters.APPOINTS;
@@ -89,7 +89,7 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch("fetchClients");
+    this.$store.dispatch("GET_CLIENTS");
     this.$store.dispatch("GET_APPOINTS", this.date);
   },
 

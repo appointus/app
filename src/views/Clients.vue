@@ -48,16 +48,16 @@ export default {
   },
   computed: {
     clients() {
-      return this.$store.getters.allClients;
+      return this.$store.getters.CLIENTS;
     }
   },
   created() {
-    this.$store.dispatch("fetchClients");
+    this.$store.dispatch("GET_CLIENTS");
   },
   methods: {
     submit() {
-      this.$store.dispatch("addClient", this.client);
-      this.$store.dispatch("fetchClients");
+      this.$store.dispatch("SAVE_CLIENT", this.client);
+      this.$store.dispatch("GET_CLIENTS");
       this.isFormHidden = true;
     },
     add() {

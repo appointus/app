@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import client from "./client";
-import appoint from "./appoint";
+import appoint from "./appointments";
 
 Vue.use(Vuex);
 

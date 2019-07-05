@@ -1,26 +1,18 @@
 import Axios from "axios";
 
 const appointmentsUrl = "http://localhost:3000/appointments";
-const clientsUrl = "http://localhost:3000/clients";
 export default {
   state: {
-    appoints: [],
-    clients: []
+    appoints: []
   },
   getters: {
     APPOINTS: state => {
       return state.appoints;
-    },
-    CLIENTS: state => {
-      return state.clients;
     }
   },
   mutations: {
     SET_APPOINTS: (state, payload) => {
       state.appoints = payload;
-    },
-    SET_CLIENTS: (state, payload) => {
-      state.clients = payload;
     },
     ADD_APPOINT: (state, payload) => {
       state.appoints.push(payload);
@@ -36,10 +28,6 @@ export default {
       Axios.get(`${appointmentsUrl}/${payload.toString()}`).then(res => {
         context.commit("SET_APPOINTS", res.data);
       });
-    },
-    GET_CLIENTS: context =>
-      Axios.get(clientsUrl).then(res => {
-        context.commit("SET_CLIENTS", res.data);
-      })
+    }
   }
 };

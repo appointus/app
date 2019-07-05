@@ -1,6 +1,7 @@
 import Vue from "vue";
 import axios from "axios";
-const baseUrl = "http://localhost:3000/clients";
+import config from "../config";
+
 export default {
   state: {
     clients: []
@@ -20,12 +21,12 @@ export default {
   },
   actions: {
     fetchClients({ commit }) {
-      axios.get(baseUrl).then(res => {
+      axios.get(config.clientsUrl).then(res => {
         commit("SET_CLIENT", res.data);
       });
     },
     addClient({ commit }, payload) {
-      axios.post(baseUrl, payload).then(() => {
+      axios.post(config.clientsUrl, payload).then(() => {
         commit("ADD_CLIENT", payload);
       });
     }

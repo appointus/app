@@ -14,13 +14,22 @@
       <v-btn class="white--text" color="red accent-2" @click="cancel">Cancel</v-btn>
     </v-form>
     <v-card>
-      <v-list>
-        <v-list-tile v-for="client in clients" :key="client.phone">
-          <v-list-tile-content>{{client.first_name}}</v-list-tile-content>
-          <v-list-tile-content>{{client.last_name}}</v-list-tile-content>
-          <v-list-tile-content>{{client.phone}}</v-list-tile-content>
-        </v-list-tile>
-      </v-list>
+      <table>
+        <thead>
+          <tr>
+            <th class="text-xs-left">First Name</th>
+            <th class="text-xs-left">Last Name</th>
+            <th class="text-xs-left">Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="client in clients" :key="client._id">
+            <td>{{client.first_name}}</td>
+            <td>{{client.last_name}}</td>
+            <td>{{client.phone}}</td>
+          </tr>
+        </tbody>
+      </table>
     </v-card>
   </v-app>
 </template>
@@ -60,3 +69,14 @@ export default {
   }
 };
 </script>
+
+<style  scoped>
+table {
+  width: 100%;
+}
+td,
+th {
+  padding: 10px;
+  text-align: left;
+}
+</style>

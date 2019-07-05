@@ -44,14 +44,24 @@
         </v-layout>
       </v-container>
     </v-form>
-    <v-list>
-      <v-list-tile v-for="appoint in appointusList" :key="appoint._id">
-        <v-list-tile-content>{{appoint.time}}</v-list-tile-content>
-        <v-list-tile-content>{{appoint.client.first_name}}</v-list-tile-content>
-        <v-list-tile-content>{{appoint.client.last_name}}</v-list-tile-content>
-        <v-list-tile-content>{{appoint.client.phone}}</v-list-tile-content>
-      </v-list-tile>
-    </v-list>
+    <table>
+      <thead>
+        <tr>
+          <th class="text-xs-left">Time</th>
+          <th class="text-xs-left">First Name</th>
+          <th class="text-xs-left">Last Name</th>
+          <th class="text-xs-left">Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="appoint in appointusList" :key="appoint._id">
+          <td>{{appoint.time}}</td>
+          <td>{{appoint.client.first_name}}</td>
+          <td>{{appoint.client.last_name}}</td>
+          <td>{{appoint.client.phone}}</td>
+        </tr>
+      </tbody>
+    </table>
   </v-app>
 </template>
 
@@ -99,3 +109,14 @@ export default {
   }
 };
 </script>
+
+<style  scoped>
+table {
+  width: 100%;
+}
+td,
+th {
+  padding: 10px;
+  text-align: left;
+}
+</style>

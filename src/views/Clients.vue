@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import axios from "axios";
-const baseUrl = "http://localhost:3000/clients";
 export default {
   data() {
     return {

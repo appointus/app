@@ -14,26 +14,37 @@
       <v-btn class="white--text" color="red accent-2" @click="cancel">Cancel</v-btn>
     </v-form>
     <v-card>
-      <v-list>
-        <v-form v-if="isEdit">
-          <v-text-field :counter="20" label="New Name" v-model="client.first_name"></v-text-field>
-          <v-text-field :counter="20" label="New Second Name" v-model="client.last_name"></v-text-field>
-          <v-text-field :counter="10" label="New Phone Number" v-model="client.phone"></v-text-field>
-          <v-btn
-            @click="save"
-            type="button"
-            class="white--text success"
-            color="light-green accent-3"
-          >Save</v-btn>
-          <v-btn class="white--text" color="red accent-2" @click="cancel">Cancel</v-btn>
-        </v-form>
-        <v-list-tile v-for="client in clients" :key="client.phone">
-          <v-list-tile-content>{{client.first_name}}</v-list-tile-content>
-          <v-list-tile-content>{{client.last_name}}</v-list-tile-content>
-          <v-list-tile-content>{{client.phone}}</v-list-tile-content>
-          <v-btn color="info" @click="edit(client)">Edit</v-btn>
-        </v-list-tile>
-      </v-list>
+      <table>
+        <thead>
+          <tr>
+            <th class="text-xs-left">First Name</th>
+            <th class="text-xs-left">Last Name</th>
+            <th class="text-xs-left">Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="client in clients" :key="client._id">
+            <td>{{client.first_name}}</td>
+            <td>{{client.last_name}}</td>
+            <td>{{client.phone}}</td>
+            <td>
+              <v-btn color="info" @click="edit(client)">Edit</v-btn>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <v-form v-if="isEdit">
+        <v-text-field :counter="20" label="New Name" v-model="client.first_name"></v-text-field>
+        <v-text-field :counter="20" label="New Second Name" v-model="client.last_name"></v-text-field>
+        <v-text-field :counter="10" label="New Phone Number" v-model="client.phone"></v-text-field>
+        <v-btn
+          @click="save"
+          type="button"
+          class="white--text success"
+          color="light-green accent-3"
+        >Save</v-btn>
+        <v-btn class="white--text" color="red accent-2" @click="cancel">Cancel</v-btn>
+      </v-form>
     </v-card>
   </v-app>
 </template>
@@ -53,16 +64,16 @@ export default {
   },
   computed: {
     clients() {
-      return this.$store.getters.allClients;
+      return this.$store.getters.CLIENTS;
     }
   },
   created() {
-    this.$store.dispatch("fetchClients");
+    this.$store.dispatch("GET_CLIENTS");
   },
   methods: {
     submit() {
-      this.$store.dispatch("addClient", this.client);
-      this.$store.dispatch("fetchClients");
+      this.$store.dispatch("SAVE_CLIENT", this.client);
+      this.$store.dispatch("GET_CLIENTS");
       this.isFormHidden = true;
     },
     add() {
@@ -85,3 +96,14 @@ export default {
   }
 };
 </script>
+
+<style  scoped>
+table {
+  width: 100%;
+}
+td,
+th {
+  padding: 10px;
+  text-align: left;
+}
+</style>

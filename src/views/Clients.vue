@@ -26,9 +26,6 @@
 </template>
 
 <script>
-import axios from "axios";
-const baseUrl = "http://localhost:3000/clients";
-
 export default {
   data() {
     return {
@@ -37,33 +34,28 @@ export default {
         first_name: "",
         last_name: "",
         phone: ""
-      },
-      clients: []
+      }
     };
   },
-  mounted() {
-    this.fetchClients();
+  computed: {
+    clients() {
+      return this.$store.getters.allClients;
+    }
+  },
+  created() {
+    this.$store.dispatch("fetchClients");
   },
   methods: {
     submit() {
-      axios.post(baseUrl, this.client).then(() => {
-        this.isFormHidden = true;
-        this.fetchClients();
-      });
+      this.$store.dispatch("addClient", this.client);
+      this.$store.dispatch("fetchClients");
+      this.isFormHidden = true;
     },
     add() {
       this.isFormHidden = false;
     },
     cancel() {
       this.isFormHidden = true;
-    },
-    fetchClients() {
-      axios.get(baseUrl).then(res => {
-        this.clients = [];
-        res.data.forEach(element => {
-          this.clients.push(element);
-        });
-      });
     }
   }
 };

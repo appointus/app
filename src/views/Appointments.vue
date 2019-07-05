@@ -66,6 +66,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   data() {
     return {
@@ -94,12 +96,33 @@ export default {
   },
 
   methods: {
+    isValidDate() {
+      const now = moment();
+      const selectedDate = moment(
+        this.date + " " + this.time,
+        "YYYY-MM-DD HH:mm"
+      );
+
+      return selectedDate.isAfter(now) || selectedDate.isSame(now, "minute");
+    },
     clientInfoString: client =>
       `${client.first_name} ${client.last_name} - ${client.phone}`,
     dataChanget() {
+      if (!this.isValidDate()) {
+        alert("It is not possible to add an appointment in the past");
+        this.date = moment().format("YYYY-MM-DD");
+        this.time = moment().format("HH:mm");
+        return;
+      }
+
       this.$store.dispatch("GET_APPOINTS", this.date);
     },
     add() {
+      if (!this.isValidDate()) {
+        alert("It is not possible to add an appointment in the past");
+        return;
+      }
+
       this.$store.dispatch("SAVE_APPOINT", {
         date: this.date,
         time: this.time,

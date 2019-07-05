@@ -1,12 +1,8 @@
-import Vue from "vue";
-import Vuex from "vuex";
 import Axios from "axios";
-
-Vue.use(Vuex);
 
 const appointmentsUrl = "http://localhost:3000/appointments";
 const clientsUrl = "http://localhost:3000/clients";
-export default new Vuex.Store({
+export default {
   state: {
     appoints: [],
     clients: []
@@ -46,4 +42,4 @@ export default new Vuex.Store({
         context.commit("SET_CLIENTS", res.data);
       })
   }
-});
+};

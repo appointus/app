@@ -27,9 +27,24 @@
             <td>{{client.first_name}}</td>
             <td>{{client.last_name}}</td>
             <td>{{client.phone}}</td>
+            <td>
+              <v-btn color="info" @click="edit(client)">Edit</v-btn>
+            </td>
           </tr>
         </tbody>
       </table>
+      <v-form v-if="isEdit">
+        <v-text-field :counter="20" label="New Name" v-model="client.first_name"></v-text-field>
+        <v-text-field :counter="20" label="New Second Name" v-model="client.last_name"></v-text-field>
+        <v-text-field :counter="10" label="New Phone Number" v-model="client.phone"></v-text-field>
+        <v-btn
+          @click="save"
+          type="button"
+          class="white--text success"
+          color="light-green accent-3"
+        >Save</v-btn>
+        <v-btn class="white--text" color="red accent-2" @click="cancel">Cancel</v-btn>
+      </v-form>
     </v-card>
   </v-app>
 </template>
@@ -43,7 +58,8 @@ export default {
         first_name: "",
         last_name: "",
         phone: ""
-      }
+      },
+      isEdit: false
     };
   },
   computed: {
@@ -62,9 +78,20 @@ export default {
     },
     add() {
       this.isFormHidden = false;
+      this.client = {};
     },
     cancel() {
       this.isFormHidden = true;
+      this.isEdit = false;
+    },
+    edit(client) {
+      this.isEdit = true;
+      this.client = client;
+    },
+    save() {
+      this.$store.dispatch("updateClient", this.client);
+
+      this.isEdit = false;
     }
   }
 };

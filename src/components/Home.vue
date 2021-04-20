@@ -1,13 +1,16 @@
 <template>
   <div>
     <div>
-      <v-toolbar color="cyan">
-        <v-toolbar-items>
-          <v-btn to="/appointments" flat>APPOINTMENTS</v-btn>
-          <v-btn to="/clients" flat>CLIENTS</v-btn>
-        </v-toolbar-items>
-        <v-spacer></v-spacer>
-      </v-toolbar>
+    <b-navbar>
+        <template #start>
+            <b-navbar-item href="/appointments">
+                APPOINTMENTS
+            </b-navbar-item>
+            <b-navbar-item href="/clients">
+                CLIENTS
+            </b-navbar-item>
+        </template>
+    </b-navbar>
     </div>
     <div>
       <router-view></router-view>

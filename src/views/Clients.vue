@@ -1,19 +1,28 @@
 <template>
-  <v-app>
-    <v-icon @click="add" v-if="isFormHidden" large color="green">add_circle</v-icon>
-    <v-form v-else>
-      <v-text-field v-model="client.first_name" :counter="20" label="First Name"></v-text-field>
-      <v-text-field v-model="client.last_name" :counter="20" label="Second Name"></v-text-field>
-      <v-text-field v-model="client.phone" :counter="10" label="Phone Number"></v-text-field>
-      <v-btn
-        @click="submit"
-        type="button"
-        class="white--text success"
-        color="light-green accent-3"
-      >Submit</v-btn>
-      <v-btn class="white--text" color="red accent-2" @click="cancel">Cancel</v-btn>
-    </v-form>
-    <v-card>
+  <div>
+    <div @click="add" v-if="isFormHidden">
+      <b-icon  
+                icon="account"
+                size="is-large"
+                type="is-success">
+            </b-icon>
+    </div>
+    <form class="p-10" v-else>
+      <b-field  label="First Name">
+            <b-input v-model="client.first_name"></b-input>
+        </b-field>
+        <b-field label="Second Name">
+            <b-input v-model="client.last_name"></b-input>
+        </b-field>
+        <b-field label="Phone Number">
+            <b-input v-model="client.phone"></b-input>
+        </b-field>
+        <div class="p-10"><div class="buttons">
+         <b-button type="is-success" @click="submit">Submit</b-button>
+         <b-button type="is-danger" @click="cancel">Cancel</b-button>
+        </div></div>
+    </form>
+    <div>
       <table>
         <thead>
           <tr>
@@ -28,25 +37,29 @@
             <td>{{client.last_name}}</td>
             <td>{{client.phone}}</td>
             <td>
-              <v-btn color="info" @click="edit(client)">Edit</v-btn>
+              <b-button type="is-info" @click="edit(client)">Edit</b-button>
             </td>
           </tr>
         </tbody>
       </table>
-      <v-form v-if="isEdit">
-        <v-text-field :counter="20" label="New Name" v-model="client.first_name"></v-text-field>
-        <v-text-field :counter="20" label="New Second Name" v-model="client.last_name"></v-text-field>
-        <v-text-field :counter="10" label="New Phone Number" v-model="client.phone"></v-text-field>
-        <v-btn
-          @click="save"
-          type="button"
-          class="white--text success"
-          color="light-green accent-3"
-        >Save</v-btn>
-        <v-btn class="white--text" color="red accent-2" @click="cancel">Cancel</v-btn>
-      </v-form>
-    </v-card>
-  </v-app>
+      <form v-if="isEdit">
+        <b-field  label="New First Name">
+            <b-input v-model="client.first_name"></b-input>
+        </b-field>
+        <b-field label="New Second Name">
+            <b-input v-model="client.last_name"></b-input>
+        </b-field>
+        <b-field label="New Phone Number">
+            <b-input v-model="client.phone"></b-input>
+        </b-field>
+        <div class="p-10"><div class="buttons">
+         <b-button type="is-success" @click="save">Save</b-button>
+        <b-button type="is-danger" @click="cancel">Cancel</b-button>
+        </div></div>
+        
+      </form>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -98,6 +111,13 @@ export default {
 </script>
 
 <style  scoped>
+.field{
+  width: 30%;
+  padding: 0 10px;
+}
+.p-10{
+  padding: 0 10px;
+}
 table {
   width: 100%;
 }
@@ -106,4 +126,5 @@ th {
   padding: 10px;
   text-align: left;
 }
+
 </style>

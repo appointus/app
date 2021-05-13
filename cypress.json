@@ -1,0 +1,11 @@
+{
+    "component": {
+      "componentFolder": "src",
+      "testFiles": "**/*.spec.js"
+    },
+    "componentFolder": "src",
+    "viewportWidth":1920,
+    "viewportHeight":1080
+
+    
+}

@@ -1,3 +1,3 @@
 export default {
-  Url: "https://loclahost:3000"
+  Url: "http://localhost:3000"
 };

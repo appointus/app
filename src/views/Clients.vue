@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div @click="add" v-if="isFormHidden">
+    <div class="add-client" @click="add" v-if="isFormHidden">
       <b-icon  
                 icon="account"
                 size="is-large"
@@ -9,17 +9,17 @@
     </div>
     <form class="p-10" v-else>
       <b-field  label="First Name">
-            <b-input v-model="client.first_name"></b-input>
+            <b-input class="first-name" v-model="client.first_name"></b-input>
         </b-field>
         <b-field label="Second Name">
-            <b-input v-model="client.last_name"></b-input>
+            <b-input class="second-name" v-model="client.last_name"></b-input>
         </b-field>
-        <b-field label="Phone Number">
-            <b-input v-model="client.phone"></b-input>
+        <b-field  label="Phone Number">
+            <b-input class="phone-number" v-model="client.phone"></b-input>
         </b-field>
         <div class="p-10"><div class="buttons">
-         <b-button type="is-success" @click="submit">Submit</b-button>
-         <b-button type="is-danger" @click="cancel">Cancel</b-button>
+         <b-button type="is-success" class="submit" @click="submit">Submit</b-button>
+         <b-button type="is-danger" class="cancel" @click="cancel">Cancel</b-button>
         </div></div>
     </form>
     <div>
@@ -37,23 +37,26 @@
             <td>{{client.last_name}}</td>
             <td>{{client.phone}}</td>
             <td>
-              <b-button type="is-info" @click="edit(client)">Edit</b-button>
+              <b-button class="edit" type="is-info" @click="edit(client)">Edit</b-button>
             </td>
           </tr>
         </tbody>
       </table>
       <form v-if="isEdit">
         <b-field  label="New First Name">
-            <b-input v-model="client.first_name"></b-input>
+            <b-input class="first-name" v-model="client.first_name"></b-input>
         </b-field>
         <b-field label="New Second Name">
-            <b-input v-model="client.last_name"></b-input>
+            <b-input class="second-name" v-model="client.last_name"></b-input>
         </b-field>
         <b-field label="New Phone Number">
-            <b-input v-model="client.phone"></b-input>
+            <b-input class="phone-number" v-model="client.phone"></b-input>
         </b-field>
-        <b-button type="is-success" @click="save">Save</b-button>
-        <b-button type="is-danger" @click="cancel">Cancel</b-button>
+        <div class="p-10"><div class="buttons">
+         <b-button type="is-success" class="submit" @click="save">Save</b-button>
+        <b-button type="is-danger" class="cancel" @click="cancel">Cancel</b-button>
+        </div></div>
+        
       </form>
     </div>
   </div>

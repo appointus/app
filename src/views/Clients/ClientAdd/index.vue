@@ -22,43 +22,7 @@
          <b-button type="is-danger" @click="cancel">Cancel</b-button>
         </div></div>
     </form>
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th class="text-xs-left">First Name</th>
-            <th class="text-xs-left">Last Name</th>
-            <th class="text-xs-left">Phone</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="client in clients" :key="client._id">
-            <td>{{client.first_name}}</td>
-            <td>{{client.last_name}}</td>
-            <td>{{client.phone}}</td>
-            <td>
-              <b-button type="is-info" @click="edit(client)">Edit</b-button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <form v-if="isEdit">
-        <b-field  label="New First Name">
-            <b-input v-model="client.first_name"></b-input>
-        </b-field>
-        <b-field label="New Second Name">
-            <b-input v-model="client.last_name"></b-input>
-        </b-field>
-        <b-field label="New Phone Number">
-            <b-input v-model="client.phone"></b-input>
-        </b-field>
-        <div class="p-10"><div class="buttons">
-         <b-button type="is-success" @click="save">Save</b-button>
-        <b-button type="is-danger" @click="cancel">Cancel</b-button>
-        </div></div>
-        
-      </form>
-    </div>
+    
   </div>
 </template>
 
@@ -67,11 +31,7 @@ export default {
   data() {
     return {
       isFormHidden: true,
-      client: {
-        first_name: "",
-        last_name: "",
-        phone: ""
-      },
+      
       isEdit: false
     };
   },
@@ -101,11 +61,7 @@ export default {
       this.isEdit = true;
       this.client = client;
     },
-    save() {
-      this.$store.dispatch("updateClient", this.client);
-
-      this.isEdit = false;
-    }
+    
   }
 };
 </script>
@@ -126,5 +82,4 @@ th {
   padding: 10px;
   text-align: left;
 }
-
-</style>
+ </style> 

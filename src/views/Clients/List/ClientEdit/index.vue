@@ -37,7 +37,7 @@ export default {
     this.$store.dispatch("GET_CLIENTS");
   },
   methods: {
- 
+
     save() {
       this.$store.dispatch("updateClient", this.client);
       this.$emit('hide', false)

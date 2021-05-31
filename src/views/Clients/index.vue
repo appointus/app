@@ -1,9 +1,7 @@
 <template>
   <div>
       <client-add/>
-      <list /> 
-    
-   
+      <list />
   </div>
 </template>
 
@@ -12,14 +10,13 @@ import List from './List'
 import ClientAdd from './ClientAdd'
 
 export default {
-    components:{
+  components:{
         List,
         ClientAdd
     },
   data() {
     return {
-     isFormHidden: true,
-      
+      isFormHidden: true,
       isEdit: false
     };
   },
@@ -51,7 +48,6 @@ export default {
     },
     save() {
       this.$store.dispatch("updateClient", this.client);
-
       this.isEdit = false;
     }
   }
@@ -74,5 +70,4 @@ th {
   padding: 10px;
   text-align: left;
 }
-
 </style>

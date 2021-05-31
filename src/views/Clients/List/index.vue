@@ -17,20 +17,17 @@
               <b-button type="is-info" @click="edit(client)">Edit</b-button>
             </td>
           </tr>
-          
         </tbody>
     </table>
-    <client-edit v-model="isEdit" :client="client"/> 
-      
-    </div>    
+    <client-edit v-model="isEdit" :client="client"/>
+    </div>
 </template>
 <script>
 import ClientEdit from './ClientEdit'
 
 export default {
   components:{
-        ClientEdit
-        
+    ClientEdit
   },
   data() {
     return {
@@ -45,7 +42,7 @@ export default {
   },
   computed: {
     clients() {
-      return this.$store.getters.CLIENTS;
+    return this.$store.getters.CLIENTS;
     }
   },
   created() {
